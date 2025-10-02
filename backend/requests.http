@@ -1,0 +1,15 @@
+### test controller
+Get http://localhost:3000/auth/hello
+
+### Register User
+Post http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "ngk.khang94@gmail.com",
+    "password": "khang2901",
+    "role": "admin"
+}
+
+### Get all users
+Get http://localhost:3000/users/all-users
