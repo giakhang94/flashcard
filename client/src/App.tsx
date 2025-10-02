@@ -34,8 +34,8 @@ function App() {
             <Route path="admin/register" element={<CreateUser />} />
             <Route path="admin/cards/add" element={<AddCard />} />
             <Route path="admin/cards/edit/:id" element={<EditCard />} />
+            <Route path="all-cards" element={<AllCards />} />
           </Route>
-          <Route path="all-cards" element={<AllCards />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
