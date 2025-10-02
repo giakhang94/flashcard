@@ -42,7 +42,8 @@ function Home() {
     if (!data) return [];
     const targetLesson = parseInt(input.lesson.toString());
     if (targetLesson === 0) return randomIndex(data);
-    const filter = data.filter((card: any) => card.lesson === targetLesson);
+    const filter =
+      data && data.filter((card: any) => card.lesson === targetLesson);
     return randomIndex(filter);
   }, [data, input.lesson]);
 
