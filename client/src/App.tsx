@@ -8,6 +8,7 @@ import AllCards from "./pages/AllCards";
 import Home from "./pages/Home";
 import EditCard from "./pages/admin/editCard";
 import Navbar from "./components/Navbar";
+import ProtectedLayout from "./components/ProtectedLayout";
 
 function App() {
   return (
@@ -29,10 +30,12 @@ function App() {
         />
         <Routes>
           <Route path="auth/login" element={<Login />} />
-          <Route path="admin/register" element={<CreateUser />} />
-          <Route path="admin/cards/add" element={<AddCard />} />
+          <Route element={<ProtectedLayout />}>
+            <Route path="admin/register" element={<CreateUser />} />
+            <Route path="admin/cards/add" element={<AddCard />} />
+            <Route path="admin/cards/edit/:id" element={<EditCard />} />
+          </Route>
           <Route path="cards/all-cards" element={<AllCards />} />
-          <Route path="admin/cards/edit/:id" element={<EditCard />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>

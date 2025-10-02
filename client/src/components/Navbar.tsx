@@ -72,6 +72,7 @@ function Navbar() {
             <span className="text-xl text-neutral-500 font-semibold">
               welcome,{" "}
             </span>
+
             <div
               className="flex items-center cursor-pointer"
               onClick={() => {
@@ -91,12 +92,16 @@ function Navbar() {
                   >
                     Logout
                   </p>
-                  <Link to="/admin/cards/add" className="block">
-                    Add Cards
-                  </Link>
-                  <Link to="/admin/register" className="block">
-                    Add User
-                  </Link>
+                  {data.role === "admin" && (
+                    <>
+                      <Link to="/admin/cards/add" className="block">
+                        Add Cards
+                      </Link>
+                      <Link to="/admin/register" className="block">
+                        Add User
+                      </Link>
+                    </>
+                  )}
                 </div>
               )}
             </div>
