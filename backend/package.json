@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build:backend": "nest build",
+    "build:backend": "npm install && nest build",
     "build:frontend": "cd ../client && npm install && npm run build && rm -rf ../backend/client && cp -r dist ../backend/client",
     "build:full": "npm run build:frontend && npm run build:backend",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
