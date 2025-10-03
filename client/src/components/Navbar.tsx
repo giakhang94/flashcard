@@ -94,6 +94,9 @@ function Navbar() {
                   </p>
                   {data.role === "admin" && (
                     <>
+                      <Link to="/admin/cards/all" className="block">
+                        All Cards
+                      </Link>
                       <Link to="/admin/cards/add" className="block">
                         Add Cards
                       </Link>
