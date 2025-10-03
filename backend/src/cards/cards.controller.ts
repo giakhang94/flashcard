@@ -31,6 +31,8 @@ export class CardsController {
   }
 
   @Get('all-cards')
+  @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard_RefreshToken)
   getAllCards() {
     return this.cardsService.getAllCards();
   }
