@@ -1,7 +1,7 @@
 import loadingIcon from "../assets/loading.svg";
-function Loading() {
+function Loading({ classname }: { classname?: string }) {
   return (
-    <div className="w-5 h-5">
+    <div className={`${classname ? classname : "w-5 h-5"}`}>
       <img src={loadingIcon} className="w-full h-full" />
     </div>
   );

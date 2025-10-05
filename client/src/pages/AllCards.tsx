@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import CardItem from "../components/CardItem";
+import Loading from "../components/Loading";
 
 function AllCards() {
   const getAllCards = async () => {
@@ -13,7 +14,11 @@ function AllCards() {
   };
   const info = useQuery({ queryKey: ["all-cards"], queryFn: getAllCards });
   if (info.isPending) {
-    return <>loading...</>;
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <Loading classname="h-10 w-10" />
+      </div>
+    );
   }
   if (info.isError) {
     return <>con cac...</>;

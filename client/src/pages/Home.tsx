@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "../src/components/components/ui/select";
 import { Input } from "../src/components/components/ui/input";
+import Loading from "../components/Loading";
 
 interface Input {
   lesson: number;
@@ -47,7 +48,12 @@ function Home() {
     return randomIndex(filter);
   }, [data, input.lesson]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <Loading classname="h-10 w-10" />
+      </div>
+    );
   if (isError) return <div>Something went wrong</div>;
 
   return (

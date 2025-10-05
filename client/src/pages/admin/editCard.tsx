@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "../../src/components/components/ui/select";
 import { Label } from "../../src/components/components/ui/label";
+import Loading from "../../components/Loading";
 interface Input {
   hiragana: string;
   katakana: string;
@@ -93,7 +94,12 @@ function EditCard() {
   useEffect(() => {
     if (data) setInput(data);
   }, [data]);
-  if (isLoading) return <div>Loading..</div>;
+  if (isLoading)
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <Loading classname="h-10 w-10" />
+      </div>
+    );
   if (isError) {
     toast((error as any).response.data.message);
     return <div>Something went wrong</div>;
