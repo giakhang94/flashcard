@@ -34,20 +34,20 @@ function CardItem({
   const [showDetail, setShowDetail] = useState<boolean>(false);
   return (
     <div className="relative">
-      <div
-        className="w-full h-[300px] bg-neutral-200/80 rounded-lg cursor-pointer"
-        onClick={() => {
-          setShowDetail((prev) => !prev);
-        }}
-      >
+      <div className="w-full h-[300px] bg-neutral-200/80 rounded-lg cursor-pointer">
         {!showDetail && (
           <div className="hiragana flex justify-center  items-center relative w-full h-full bg-neutral-200 rounded-md dark:bg-neutral-900">
             <p className="text-4xl text-teal-600 font-medium">
               {card.hiragana}
             </p>
-            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">{`${card.level} lesson ${card.lesson}`}</span>
-            <span className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600">
-              {card.difficulty}
+            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">{`${card.difficulty} = ${card.level} lesson ${card.lesson}`}</span>
+            <span
+              className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600 cursor-pointer"
+              onClick={() => {
+                setShowDetail((prev) => !prev);
+              }}
+            >
+              Flip
             </span>
           </div>
         )}
@@ -86,9 +86,14 @@ function CardItem({
             >
               {card.example}
             </p>
-            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">{`${card.level} lesson ${card.lesson}`}</span>
-            <span className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600">
-              {card.difficulty}{" "}
+            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">{`${card.difficulty} = ${card.level} lesson ${card.lesson}`}</span>
+            <span
+              className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600 cursor-pointer"
+              onClick={() => {
+                setShowDetail((prev) => !prev);
+              }}
+            >
+              Flip
             </span>
           </div>
         )}

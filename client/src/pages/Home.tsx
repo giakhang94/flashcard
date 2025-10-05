@@ -14,6 +14,9 @@ import {
 } from "../src/components/components/ui/select";
 import { Input } from "../src/components/components/ui/input";
 import Loading from "../components/Loading";
+import StrokeOrderGuide from "../components/StrokeOrders";
+
+import { MdArrowDropDown } from "react-icons/md";
 
 interface Input {
   lesson: number;
@@ -23,6 +26,7 @@ interface Input {
 function Home() {
   const [input, setInput] = useState<Input>({ level: "N5", lesson: 1 });
   const [index, setIndex] = useState<number>(0);
+  const [showGuide, setShowGuide] = useState<boolean>(false);
   const handleChange = (e: any) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -54,7 +58,12 @@ function Home() {
         <Loading classname="h-10 w-10" />
       </div>
     );
-  if (isError) return <div>Something went wrong</div>;
+  if (isError)
+    return (
+      <div className="flex w-full justify-center items-center">
+        Something went wrong
+      </div>
+    );
 
   return (
     <div className="w-full p-10 mx-auto flex flex-col justify-center items-center max-w-[880px]">
@@ -113,6 +122,20 @@ function Home() {
             />
           </div>
         )}
+      </div>
+      <div className="w-full">
+        <h1
+          className="text-2xl font-semibold text-teal-600 tracking-[1px] cursor-pointer my-8 text-left block w-full"
+          onClick={() => {
+            setShowGuide((prev) => !prev);
+          }}
+        >
+          <span>Show Stroke Order Rules</span>
+          <span>
+            <MdArrowDropDown className="inline" />
+          </span>
+        </h1>
+        {showGuide && <StrokeOrderGuide />}
       </div>
     </div>
   );
