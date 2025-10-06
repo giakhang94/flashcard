@@ -86,7 +86,19 @@ function CardItem({
             >
               {card.example}
             </p>
-            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">{`${card.difficulty} = ${card.level} lesson ${card.lesson}`}</span>
+            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">
+              {`${card.difficulty}`}
+              <span
+                className={`w-2 h-2 bg-${
+                  card.difficulty === "easy"
+                    ? "green"
+                    : card.difficulty === "medium"
+                    ? "bg-yellow-500"
+                    : "red"
+                }-500 rounded-full inline`}
+              ></span>
+              {`${card.level} lesson ${card.lesson}`}
+            </span>
             <span
               className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600 cursor-pointer"
               onClick={() => {
