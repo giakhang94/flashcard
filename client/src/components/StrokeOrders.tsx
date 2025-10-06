@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import chart from "../assets/stroke-order-chart.jpg";
+import chart from "../assets/stroke-order-chart.jpg"; // Đã import
 
+type arrayElement = string | React.JSX.Element;
 // --- Khai báo TypeScript Interface ---
 interface StrokeRule {
   id: string;
   name: string;
   category: "Kana" | "Kanji" | "Special";
-  rules: string[];
-  positionSizeNote?: string;
-  example?: string;
+  rules: arrayElement[];
+  positionSizeNote?: arrayElement;
+  example?: arrayElement;
 }
 
 // --- Dummy Data: Dữ liệu Quy tắc Thứ tự Nét ---
@@ -41,8 +43,7 @@ const strokeRulesData: StrokeRule[] = [
       "Viết các nét liền mạch, chú ý độ cong và móc mềm mại.",
     ],
     positionSizeNote: "Kích thước chuẩn (1 ô vuông).",
-    example:
-      "Chữ あ (a): Nét ngang $\\to$ nét sổ/cong $\\to$ nét phẩy nhỏ cuối cùng.",
+    example: "Chữ あ (a): Nét ngang - nét sổ/cong - nét phẩy nhỏ cuối cùng.",
   },
   {
     id: "katakana",
@@ -55,8 +56,7 @@ const strokeRulesData: StrokeRule[] = [
       "Các nét thẳng, góc cạnh rõ ràng, dứt khoát.",
     ],
     positionSizeNote: "Kích thước chuẩn (1 ô vuông).",
-    example:
-      "Chữ エ (e): Nét ngang trên $\\to$ nét ngang giữa $\\to$ nét sổ đứng.",
+    example: "Chữ エ (e): Nét ngang trên - nét ngang giữa - nét sổ đứng.",
   },
   {
     id: "small_kana",
@@ -66,16 +66,34 @@ const strokeRulesData: StrokeRule[] = [
       "Thứ tự nét KHÔNG ĐỔI so với phiên bản chữ cái lớn (ví dụ: Thứ tự nét của ゃ/ゅ/ょ giống や/ゆ/よ).",
       "Luôn viết **SAU CÙNG** (sau chữ Kana cơ bản đứng trước nó).",
     ],
-    positionSizeNote:
-      "**Kích thước:** Khoảng **1/4** (chỉ bằng một nửa so với chữ thường).\n**Vị trí:** Thấp hơn và nằm ở dưới bên phải (với âm ghép) hoặc chính giữa (với xúc âm $\\small{っ}$/$\\small{ッ}$).",
-    example: "き $\\small{ゃ}$ (kya), カ $\\small{ッ}$ プ (kappu).",
+    positionSizeNote: (
+      <p>
+        <span className="font-semibold text-teal-500">Kích thước:</span> Khoảng{" "}
+        <span className="font-semibold text-teal-500">1/4</span> (chỉ bằng một
+        nửa so với chữ thường).
+        <p>
+          <span className="font-semibold text-teal-500"> Vị trí: </span> Thấp
+          hơn và nằm ở dưới bên phải (với âm ghép) hoặc chính giữa (với xúc âm
+          <span className="text-sm"> っ ッ</span>).
+        </p>
+      </p>
+    ),
+    example: (
+      <p className="inline">
+        き <span className="text-sm">ゃ</span> (kya), カ{" "}
+        <span className="text-sm">ッ</span> プ (kappu)
+      </p>
+    ),
   },
   {
     id: "dakuten",
-    name: "Dấu Đục/Bán Đục (濁点/半濁点)",
+    name: "Dấu Đục/Bán Đục (Thứ tự nét)",
     category: "Special",
     rules: [
-      "Viết Dấu Đục ($\text{''}$) và Bán Đục ($\text{°}$) **SAU CÙNG**.",
+      <p className="inline">
+        Viết Dấu Đục **(゛)** và Bán Đục **(゜)**{" "}
+        <span className="font-semibold text-teal-500">SAU CÙNG</span>.
+      </p>,
       "Thứ tự viết chữ Kana cơ bản (vd: か, は) phải hoàn thành trước.",
     ],
     positionSizeNote: "Vị trí: **Góc trên bên phải** của chữ Kana cơ bản.",
@@ -86,8 +104,17 @@ const strokeRulesData: StrokeRule[] = [
     name: "Trường Âm Katakana (ー)",
     category: "Special",
     rules: [
-      "Là ký tự riêng (Chōonpu), chỉ có **một nét ngang**.",
-      "Luôn viết **SAU CÙNG** sau chữ Kana Katakana đứng trước nó.",
+      <p className="inline">
+        Là ký tự riêng (Chōonpu), chỉ có{" "}
+        <span className="font-semibold text-teal-400">
+          một nét ngang <span className="text-xl">ー</span>
+        </span>
+        .
+      </p>,
+      <p className="inline">
+        Luôn viết <span className="font-semibold text-teal-400">SAU CÙNG</span>{" "}
+        sau chữ Kana Katakana đứng trước nó.
+      </p>,
     ],
     positionSizeNote:
       "Kích thước: Bằng 1 ô chữ (như một chữ Kana thông thường).\nVị trí: Chính giữa ô chữ, là một nét ngang kéo dài từ trái sang phải.",
@@ -95,7 +122,9 @@ const strokeRulesData: StrokeRule[] = [
   },
 ];
 
-// --- Component Modal ---
+// ----------------------------------------------------
+// --- Modal 1: Biểu Đồ Thứ Tự Nét (Charts Modal) ---
+// ----------------------------------------------------
 const StrokeChartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
@@ -114,12 +143,12 @@ const StrokeChartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   return (
     // Backdrop
     <div
-      className="fixed inset-0  bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 transition-opacity"
+      className="fixed inset-0 bg-neutral-800/80 flex items-center justify-center z-50 p-4 transition-opacity"
       onClick={onClose} // Click bên ngoài modal
     >
       {/* Modal Content (ngăn chặn sự kiện click lan ra backdrop) */}
       <div
-        className="bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto transform transition-all p-6"
+        className="bg-neutral-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto transform transition-all p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center border-b border-teal-600 pb-3 mb-4">
@@ -135,16 +164,14 @@ const StrokeChartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
           </button>
         </div>
 
-        <p className="text-gray-300 mb-4">
-          **Lưu ý:** Đây là bảng chữ cái chính. Các âm đục, trường âm,... thường
-          là các ký tự nhỏ, hoặc ký tự được lấy ra từ bảng chính này. Thường sẽ
-          viết nhỏ hơn, ở vị trí cố định và viết sau cùng, thứ tự nét y như bảng
-          chính
+        <p className="text-gray-300 mb-4 font-semibold">
+          Đây là bảng chữ cái chính. Các âm đục, trường âm,... thường là các ký
+          tự nhỏ, hoặc ký tự được lấy ra từ bảng chính này. Thường sẽ viết nhỏ
+          hơn, ở vị trí cố định và viết sau cùng, thứ tự nét y như bảng chính.
         </p>
 
         {/* --- Nơi đặt ảnh của bạn --- */}
         <img
-          // THAY THẾ ĐƯỜNG DẪN DƯỚI ĐÂY BẰNG HÌNH ẢNH CỦA BẠN
           src={chart}
           alt="Japanese Stroke Order Charts (Hiragana, Katakana, Kanji Examples)"
           className="w-full h-auto rounded-lg border border-teal-700"
@@ -155,10 +182,139 @@ const StrokeChartModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   );
 };
 
+// ----------------------------------------------------
+// --- Modal 2: Quy Tắc Đọc Âm Đục/Bán Đục (Reading Modal) ---
+// ----------------------------------------------------
+const ReadingRuleModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="fixed inset-0 bg-neutral-800/80 flex items-center justify-center z-50 p-4 transition-opacity"
+      onClick={onClose}
+    >
+      <div
+        className="bg-gray-800 rounded-xl shadow-2xl max-w-xl w-full max-h-[90vh] overflow-auto transform transition-all p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center border-b border-teal-600 pb-3 mb-4">
+          <h3 className="text-xl font-bold text-teal-400">
+            Nguyên Tắc Đọc Âm Đục/Bán Đục
+          </h3>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors text-2xl"
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+        </div>
+
+        <p className="text-gray-300 mb-4 font-semibold">
+          Dấu thanh chỉ thay đổi âm thanh (phụ âm vô thanh $\to$ hữu thanh), tạo
+          ra **từ vựng có nghĩa mới**.
+        </p>
+
+        {/* Bảng Quy Tắc Đọc */}
+        <div className="space-y-6">
+          <section>
+            <h4 className="text-lg font-bold text-teal-300 mb-2">
+              1. Âm Đục (Dakuten - 濁点 ゛)
+            </h4>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-teal-700 bg-gray-700 rounded-lg">
+                <thead className="bg-teal-900/50">
+                  <tr>
+                    <th className="px-4 py-2 text-left text-sm font-semibold text-teal-200">
+                      Hàng Gốc
+                    </th>
+                    <th className="px-4 py-2 text-left text-sm font-semibold text-teal-200">
+                      Chuyển thành
+                    </th>
+                    <th className="px-4 py-2 text-left text-sm font-semibold text-teal-200">
+                      Phụ Âm
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-teal-800 text-gray-200 text-sm">
+                  <tr>
+                    <td className="px-4 py-2">K (か, き...)</td>
+                    <td className="px-4 py-2">G (が, ぎ...)</td>
+                    <td className="px-4 py-2 font-semibold">G (Hữu thanh)</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">S (さ, し...)</td>
+                    <td className="px-4 py-2">Z (ざ, じ...)</td>
+                    <td className="px-4 py-2 font-semibold">Z/J</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">T (た, ち...)</td>
+                    <td className="px-4 py-2">D (だ, ぢ...)</td>
+                    <td className="px-4 py-2 font-semibold">D</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">H (は, ひ...)</td>
+                    <td className="px-4 py-2">B (ば, び...)</td>
+                    <td className="px-4 py-2 font-semibold">B</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <h4 className="text-lg font-bold text-teal-300 mb-2">
+              2. Âm Bán Đục (Handakuten - 半濁点 ゜)
+            </h4>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-teal-700 bg-gray-700 rounded-lg">
+                <thead className="bg-teal-900/50">
+                  <tr>
+                    <th className="px-4 py-2 text-left text-sm font-semibold text-teal-200">
+                      Hàng Gốc
+                    </th>
+                    <th className="px-4 py-2 text-left text-sm font-semibold text-teal-200">
+                      Chuyển thành
+                    </th>
+                    <th className="px-4 py-2 text-left text-sm font-semibold text-teal-200">
+                      Phụ Âm
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-teal-800 text-gray-200 text-sm">
+                  <tr>
+                    <td className="px-4 py-2">H (は, ひ...)</td>
+                    <td className="px-4 py-2">P (ぱ, ぴ...)</td>
+                    <td className="px-4 py-2 font-semibold">P</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- Component Chính ---
 const StrokeOrderGuide: React.FC = () => {
   const [selectedId, setSelectedId] = useState<string>(strokeRulesData[0].id);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // State cho Modal
+  // Đã đổi tên state ban đầu thành isChartModalOpen để rõ ràng hơn
+  const [isChartModalOpen, setIsChartModalOpen] = useState<boolean>(false);
+  const [isReadingModalOpen, setIsReadingModalOpen] = useState<boolean>(false); // State mới cho Reading Modal
+
   const selectedRule = strokeRulesData.find((rule) => rule.id === selectedId);
 
   return (
@@ -190,9 +346,17 @@ const StrokeOrderGuide: React.FC = () => {
             ))}
           </nav>
 
-          {/* Nút cố định xem Charts (Modal Trigger) */}
+          {/* Nút 1: Xem Quy tắc Đọc (MỚI) */}
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsReadingModalOpen(true)}
+            className="w-full p-4 mb-3 rounded-lg bg-teal-500 text-white font-bold hover:bg-teal-400 transition-colors shadow-lg"
+          >
+            📚 Quy Tắc Đọc Âm Đục
+          </button>
+
+          {/* Nút 2: Xem Charts (CỐ ĐỊNH) */}
+          <button
+            onClick={() => setIsChartModalOpen(true)}
             className="w-full p-4 rounded-lg bg-teal-500 text-white font-bold hover:bg-teal-400 transition-colors shadow-lg sticky bottom-4 md:bottom-auto"
           >
             👁️ Xem Stroke Order Charts
@@ -200,7 +364,7 @@ const StrokeOrderGuide: React.FC = () => {
         </div>
 
         {/* --- Cột 2: Chi tiết Quy tắc Viết --- */}
-        <div className="md:w-2/3 w-full bg-gray-800 shadow-xl rounded-xl p-6">
+        <div className="md:w-2/3 w-full bg-gray-800 shadow-xl rounded-xl p-6 ">
           {selectedRule ? (
             <>
               <h2 className="text-2xl font-bold text-teal-400 mb-4 border-b border-gray-700 pb-2">
@@ -213,7 +377,7 @@ const StrokeOrderGuide: React.FC = () => {
                     <span className="text-teal-400 mr-2">📌</span> Nguyên Tắc
                     Chung
                   </h3>
-                  <ul className="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                  <ul className="list-decimal list-inside space-y-2 text-gray-300 ml-4">
                     {selectedRule.rules.map((rule, index) => (
                       <li key={index} className="text-base font-semibold">
                         {rule}
@@ -257,10 +421,14 @@ const StrokeOrderGuide: React.FC = () => {
         </div>
       </div>
 
-      {/* --- Modal Component --- */}
+      {/* --- Modals --- */}
       <StrokeChartModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isChartModalOpen}
+        onClose={() => setIsChartModalOpen(false)}
+      />
+      <ReadingRuleModal
+        isOpen={isReadingModalOpen}
+        onClose={() => setIsReadingModalOpen(false)}
       />
     </div>
   );

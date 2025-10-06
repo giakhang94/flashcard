@@ -58,12 +58,12 @@ function Home() {
         <Loading classname="h-10 w-10" />
       </div>
     );
-  if (isError)
-    return (
-      <div className="flex w-full justify-center items-center">
-        Something went wrong
-      </div>
-    );
+  // if (isError)
+  //   return (
+  //     <div className="flex w-full justify-center items-center">
+  //       Something went wrong
+  //     </div>
+  //   );
 
   return (
     <div className="w-full p-10 mx-auto flex flex-col justify-center items-center max-w-[880px]">
@@ -123,7 +123,7 @@ function Home() {
           </div>
         )}
       </div>
-      <div className="w-full">
+      <div className="w-full min-w-screen px-20">
         <h1
           className="text-2xl font-semibold text-teal-600 tracking-[1px] cursor-pointer my-8 text-left block w-full"
           onClick={() => {
