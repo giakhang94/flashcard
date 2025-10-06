@@ -58,12 +58,12 @@ function Home() {
         <Loading classname="h-10 w-10" />
       </div>
     );
-  // if (isError)
-  //   return (
-  //     <div className="flex w-full justify-center items-center">
-  //       Something went wrong
-  //     </div>
-  //   );
+  if (isError)
+    return (
+      <div className="flex w-full justify-center items-center">
+        Something went wrong
+      </div>
+    );
 
   return (
     <div className="w-full p-10 mx-auto flex flex-col justify-center items-center max-w-[880px]">
