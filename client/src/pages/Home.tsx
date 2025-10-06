@@ -58,12 +58,12 @@ function Home() {
         <Loading classname="h-10 w-10" />
       </div>
     );
-  if (isError)
-    return (
-      <div className="flex w-full justify-center items-center">
-        Something went wrong
-      </div>
-    );
+  // if (isError)
+  //   return (
+  //     <div className="flex w-full justify-center items-center">
+  //       Something went wrong
+  //     </div>
+  //   );
 
   return (
     <div className="w-full p-10 mx-auto flex flex-col justify-center items-center max-w-[880px]">
@@ -124,7 +124,8 @@ function Home() {
         )}
       </div>
       <div className="w-full min-w-screen px-20" id="Guide">
-        <h1
+        <a
+          href="#Guide"
           className="text-2xl font-semibold text-teal-600 tracking-[1px] cursor-pointer my-8 text-left block w-full"
           onClick={() => {
             setShowGuide((prev) => !prev);
@@ -141,7 +142,7 @@ function Home() {
           <span>
             <MdArrowDropDown className="inline" />
           </span>
-        </h1>
+        </a>
         {showGuide && <StrokeOrderGuide />}
       </div>
     </div>
