@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useMemo, useState } from "react";
 import randomIndex from "../utils/randomIndex";
-import CardItem from "../components/CardItem";
 import { Label } from "../src/components/components/ui/label";
 import {
   Select,
@@ -17,6 +16,7 @@ import Loading from "../components/Loading";
 import StrokeOrderGuide from "../components/StrokeOrders";
 
 import { MdArrowDropDown } from "react-icons/md";
+import CardItem from "../components/CardItem";
 
 interface Input {
   lesson: number;

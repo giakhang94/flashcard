@@ -40,7 +40,21 @@ function CardItem({
             <p className="text-4xl text-teal-600 font-medium">
               {card.hiragana}
             </p>
-            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">{`${card.difficulty} = ${card.level} lesson ${card.lesson}`}</span>
+            <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">
+              <span className="capitalize">{card.difficulty}</span>
+              <span
+                className={`w-2 h-2 rounded-full inline-block mx-2 ${
+                  card.difficulty === "easy"
+                    ? "bg-green-500"
+                    : card.difficulty === "medium"
+                    ? "bg-yellow-600"
+                    : "bg-red-500"
+                }`}
+              ></span>
+              <span>
+                {card.level} lesson ${card.lesson}
+              </span>
+            </span>
             <span
               className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600 cursor-pointer"
               onClick={() => {
@@ -87,17 +101,19 @@ function CardItem({
               {card.example}
             </p>
             <span className="absolute bottom-2 right-2 text-slate-500 font-semibold">
-              {`${card.difficulty}`}
+              <span className="capitalize">{card.difficulty}</span>
               <span
-                className={`w-2 h-2 bg-${
+                className={`w-2 h-2 rounded-full inline-block mx-2 ${
                   card.difficulty === "easy"
-                    ? "green"
+                    ? "bg-green-500"
                     : card.difficulty === "medium"
-                    ? "bg-yellow-500"
-                    : "red"
-                }-500 rounded-full inline`}
+                    ? "bg-yellow-600"
+                    : "bg-red-500"
+                }`}
               ></span>
-              {`${card.level} lesson ${card.lesson}`}
+              <span>
+                {card.level} lesson ${card.lesson}
+              </span>
             </span>
             <span
               className="absolute bottom-2 left-2 uppercase font-medium text-sm text-teal-600 cursor-pointer"
