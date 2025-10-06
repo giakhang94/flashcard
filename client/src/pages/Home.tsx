@@ -123,11 +123,18 @@ function Home() {
           </div>
         )}
       </div>
-      <div className="w-full min-w-screen px-20">
+      <div className="w-full min-w-screen px-20" id="Guide">
         <h1
           className="text-2xl font-semibold text-teal-600 tracking-[1px] cursor-pointer my-8 text-left block w-full"
           onClick={() => {
             setShowGuide((prev) => !prev);
+            const element = document.getElementById("Guide");
+            if (element) {
+              element.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
           }}
         >
           <span>Show Stroke Order Rules</span>
