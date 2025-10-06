@@ -326,7 +326,7 @@ const StrokeOrderGuide: React.FC = () => {
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* --- Cột 1: Danh sách các loại ký tự & Nút cố định --- */}
-        <div className="md:w-1/3 w-full bg-gray-800 shadow-xl rounded-xl p-4 h-fit sticky top-4">
+        <div className="md:w-1/3 w-full bg-gray-800 shadow-xl rounded-xl p-4  sticky top-4">
           <h2 className="text-xl font-semibold text-teal-400 mb-4">
             Các Loại Ký Tự
           </h2>
