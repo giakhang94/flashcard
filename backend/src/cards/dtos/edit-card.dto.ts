@@ -49,4 +49,8 @@ export class EditCardDto {
   @IsOptional()
   @IsString()
   example: string;
+
+  @IsOptional()
+  @IsString()
+  hint: string;
 }

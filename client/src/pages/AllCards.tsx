@@ -8,7 +8,8 @@ import Loading from "../components/Loading";
 function AllCards() {
   const getAllCards = async () => {
     const resp = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/cards/all-cards`
+      `${import.meta.env.VITE_BASE_URL}/cards/all-cards`,
+      { withCredentials: true }
     );
     return resp.data;
   };

@@ -5,6 +5,10 @@
 * {
   box-sizing: border-box;
 }
+/* Xóa outline khi editor được focus */
+.ProseMirror:focus {
+  outline: none;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
