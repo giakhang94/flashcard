@@ -202,7 +202,7 @@ function EditCard() {
               type="number"
               min={1}
               placeholder=""
-              className="border border-gray-300 dark:border-neutral-800 outline=none dark:outline-nonerounded-md block px-2 py-1"
+              className="border border-gray-300 dark:border-neutral-800 outline=none dark:outline-none rounded-md block px-2 py-1"
             />
           </div>
           <div className="flex flex-col mb-5">
@@ -212,6 +212,7 @@ function EditCard() {
             <Select
               name="difficulty"
               value={input.difficulty}
+              defaultValue={input.difficulty}
               onValueChange={(value) =>
                 handleChange({ target: { name: "difficulty", value } })
               }

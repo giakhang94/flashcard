@@ -3,6 +3,7 @@ import HintContent from "./HintContent";
 import HintForm from "./HintForm";
 
 function Hint({ card }: { card: Card }) {
+  console.log(card);
   return (
     <div className="detail relative flex flex-col w-full h-full bg-neutral-200 rounded-md p-2 dark:bg-neutral-900">
       <div className="flex items-center justify-between">
