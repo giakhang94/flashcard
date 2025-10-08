@@ -36,7 +36,7 @@ function CardItem({
   setIndex?: (index: number) => void;
 }) {
   const [showDetail, setShowDetail] = useState<boolean>(false);
-  const [showHint, setShowHint] = useState<boolean>(true);
+  const [showHint, setShowHint] = useState<boolean>(false);
   const handleFlip = () => {
     setShowDetail((prev) => !prev);
   };
