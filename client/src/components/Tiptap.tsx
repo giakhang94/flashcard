@@ -40,6 +40,7 @@ export default function Tiptap({ id, closeForm, content }: Props) {
     mutationFn: handleSubmit,
     onSuccess: () => {
       toast("Đã thêm hack não của từ này");
+      queryClient.setQueryData(["card-level"], null);
       queryClient.invalidateQueries({ queryKey: ["card-level"] });
       if (closeForm) {
         closeForm();
