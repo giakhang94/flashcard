@@ -17,6 +17,11 @@ export default function Tiptap({ id, closeForm, content }: Props) {
   const queryClient = useQueryClient();
   const editor = useEditor({
     extensions: [StarterKit, TextStyle, Color],
+    editorProps: {
+      attributes: {
+        class: "prose text-slate-200 dark:text-red-500",
+      },
+    },
     content: content || "Nhập mô tả liên kết hack não ở đây",
     onUpdate: ({ editor }) => {
       setOutput(editor.getHTML());
@@ -117,7 +122,7 @@ export default function Tiptap({ id, closeForm, content }: Props) {
         />
       </div>
       <button
-        className="bg-neutral-800 px-3 py-[7px] rounded-sm uppercase text-sm my-3"
+        className="dark:bg-neutral-800 px-3 py-[7px] rounded-sm uppercase text-sm my-3 bg-neutral-400 font-semibold"
         onClick={() => {
           mutation.mutate();
         }}
