@@ -17,11 +17,6 @@ export default function Tiptap({ id, closeForm, content }: Props) {
   const queryClient = useQueryClient();
   const editor = useEditor({
     extensions: [StarterKit, TextStyle, Color],
-    editorProps: {
-      attributes: {
-        class: "prose text-slate-200 dark:text-red-500",
-      },
-    },
     content: content || "Nhập mô tả liên kết hack não ở đây",
     onUpdate: ({ editor }) => {
       setOutput(editor.getHTML());
@@ -72,7 +67,7 @@ export default function Tiptap({ id, closeForm, content }: Props) {
 
   return (
     <div className="w-full mx-auto h-full max-h-[200px] overflow-x-auto">
-      <div className="border rounded-lg p-2 bg-white dark:bg-neutral-900">
+      <div className="border rounded-lg p-2 bg-slate-300 dark:bg-neutral-900">
         {/* Toolbar */}
         <div className="flex flex-wrap gap-2 mb-2 border-b pb-2">
           <button
