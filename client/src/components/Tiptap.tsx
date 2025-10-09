@@ -7,13 +7,17 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-export default function Tiptap({ id }: { id: string }) {
+interface Props {
+  id: string;
+  closeForm?: () => void;
+  content?: string;
+}
+export default function Tiptap({ id, closeForm, content }: Props) {
   const [output, setOutput] = useState("");
   const queryClient = useQueryClient();
   const editor = useEditor({
     extensions: [StarterKit, TextStyle, Color],
-    content: "Nhập mô tả liên kết hack não ở đây",
+    content: content || "Nhập mô tả liên kết hack não ở đây",
     onUpdate: ({ editor }) => {
       setOutput(editor.getHTML());
     },
@@ -37,6 +41,9 @@ export default function Tiptap({ id }: { id: string }) {
     onSuccess: () => {
       toast("Đã thêm hack não của từ này");
       queryClient.invalidateQueries({ queryKey: ["card-level"] });
+      if (closeForm) {
+        closeForm();
+      }
     },
     onError: async (error: any) => {
       console.log(error);
@@ -58,7 +65,7 @@ export default function Tiptap({ id }: { id: string }) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto h-full max-h-[200px] overflow-x-auto">
+    <div className="w-full mx-auto h-full max-h-[200px] overflow-x-auto">
       <div className="border rounded-lg p-2 bg-white dark:bg-neutral-900">
         {/* Toolbar */}
         <div className="flex flex-wrap gap-2 mb-2 border-b pb-2">
@@ -105,7 +112,7 @@ export default function Tiptap({ id }: { id: string }) {
         {/* Editor */}
         <EditorContent
           editor={editor}
-          className=" outline-none p-2 border-none "
+          className=" outline-none p-2 border-none w-full"
         />
       </div>
       <button

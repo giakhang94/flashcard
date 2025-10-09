@@ -27,7 +27,15 @@ function HintContent({ content, id }: { content: string; id: string }) {
           </div>
         </div>
       ) : (
-        <Tiptap id={id} />
+        <div className="relative">
+          <button
+            className="absolute top-2 right-2 px-2 py-1 rounded-sm bg-neutral-400 text-xs text-neutral-900 cursor-pointer font-bold"
+            onClick={toggleEdit}
+          >
+            Huỷ
+          </button>
+          <Tiptap id={id} closeForm={toggleEdit} content={content} />
+        </div>
       )}
     </div>
   );
