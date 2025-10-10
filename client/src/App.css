@@ -125,3 +125,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* //scroll bar */
+/* Toàn bộ thanh cuộn */
+::-webkit-scrollbar {
+  width: 8px; /* chiều rộng dọc */
+  height: 8px; /* chiều cao ngang */
+}
+
+/* Phần rãnh (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Phần thanh trượt */
+::-webkit-scrollbar-thumb {
+  background: #0aa78f;
+  opacity: 80%;
+  border-radius: 10px;
+}
+
+/* Khi hover vào thanh trượt */
+::-webkit-scrollbar-thumb:hover {
+  background: #0ac5a9;
+}
+
+/* (Tùy chọn) hai nút mũi tên */
+::-webkit-scrollbar-button {
+  display: none;
+}

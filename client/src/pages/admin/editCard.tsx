@@ -92,8 +92,11 @@ function EditCard() {
   });
 
   useEffect(() => {
-    if (data) setInput(data);
+    if (data) {
+      setInput(data);
+    }
   }, [data]);
+
   if (isLoading)
     return (
       <div className="h-full w-full flex justify-center items-center">
@@ -104,7 +107,7 @@ function EditCard() {
     toast((error as any).response.data.message);
     return <div>Something went wrong</div>;
   }
-
+  console.log(input);
   return (
     <div className="flex flex-col items-center justify-center my-10">
       <Logo title="Edit card" />
@@ -212,9 +215,8 @@ function EditCard() {
             <Select
               name="difficulty"
               value={input.difficulty}
-              defaultValue={input.difficulty}
               onValueChange={(value) =>
-                handleChange({ target: { name: "difficulty", value } })
+                value && handleChange({ target: { name: "difficulty", value } })
               }
             >
               <SelectTrigger className="w-full">
